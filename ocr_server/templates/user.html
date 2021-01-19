@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Page</title>
+  </head>
+
+  <body>
+    {% extends "template.html" %}
+
+    {% block title %} User's Page {% endblock %}
+
+    {% block content %}
+    <div id="profilePage_content" class="content">
+
+      <h1> User </h1>
+
+      <table id="clientsTable">
+        <thead id="clientsTable_head">
+
+          <tr>
+          {% for client in a_clients %}
+            <th> {{ client[0] }} </th>
+          {% endfor %}
+          </tr>
+
+        </thead>
+
+        <tbody id="clientsTable_body">
+
+          {% for i in range(a_clients[0]|length) %}
+
+          <tr>
+          {% for client in a_clients %}
+              <td> {{ client[i + 1] }} </td>
+          {% endfor %}
+          </tr>
+
+          {% endfor %}
+
+
+
+        </tbody>
+      </table>
+
+    </div>
+    {% endblock %}
+
+  </body>
+</html>
