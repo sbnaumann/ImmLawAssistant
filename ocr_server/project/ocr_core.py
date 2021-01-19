@@ -15,7 +15,7 @@ def ocr_core(filename):
 # print(ocr_core('images/ocr_example_1.png'))
 
 
-def main():
+def ArgChecker():
     parser = argparse.ArgumentParser()
     parser.add_argument("filename", nargs='?')
     args = parser.parse_args()
@@ -26,4 +26,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    ArgChecker()

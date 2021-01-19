@@ -13,10 +13,11 @@
             <div class="container">
                 <h1 >My Upcoming Events</h1>
                 <ul class="menu">
-                    <li><a href="{{ url_for('home_page') }}">Home</a></li>
-                    <li><a href="{{ url_for('user_page') }}">Profile</a><li>
-                    <li><a href="{{ url_for('calendar_page') }}">Calendar</a></li>
-                    <li><a href="{{ url_for('upload_page') }}">Uploads</a></li>
+                    <li><a href="{{ url_for('main.home_page') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.user_page') }}">HomeBase</a><li>
+                    <li><a href="{{ url_for('main.calendar_page') }}">Calendar</a></li>
+                    <li><a href="{{ url_for('main.upload_page') }}">Uploads</a></li>
+                    <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
                 </ul>
             </div>
         </header>
@@ -24,7 +25,7 @@
 
     {% block content %}
     <div class="content">
-      
+
     </div>
     {% endblock %}
 

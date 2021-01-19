@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import datetime
 import pickle
 from flask import Blueprint
+from . import db
 
 #imports for Flask_SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
@@ -16,12 +17,12 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # import our OCR function
-from ocr_core import ocr_core
+from .ocr_core import ocr_core
 
 
-#main = Blueprint('main', __name__)
+main = Blueprint('main', __name__)
 
-
+'''
 # define a folder to store and later serve the images
 UPLOAD_FOLDER = 'static/uploads/'
 
@@ -38,16 +39,16 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
+'''
 
 
 # route and function to handle the home page
-@app.route('/')
+@main.route('/')
 def home_page():
     return render_template('index.html')
 
 # route and function to handle the upload page
-@app.route('/upload', methods=['GET', 'POST'])
+@main.route('/upload', methods=['GET', 'POST'])
 def upload_page():
     if request.method == 'POST':
         # check if there is a file in the request
@@ -75,7 +76,7 @@ def upload_page():
     elif request.method == 'GET':
         return render_template('upload.html')
 
-@app.route('/calendar')
+@main.route('/calendar')
 def calendar_page():
     creds =  None
     SCOPES  = ['https://www.googleapis.com/auth/calendar.readonly']
@@ -114,16 +115,16 @@ def calendar_page():
 
     return  render_template("calendar.html", events=event_list)
 
-@app.route('/user')
+@main.route('/user')
 def user_page():
     a_clients = [["Client: John", "Passport: Y", "College: N"],["Client: Harry", "Passport: N", "College: N"],["Client: Tania", "Passport: Y", "College: Y"]]
     return render_template("user.html", a_clients = a_clients)
 
-@app.route('/profile')
+@main.route('/profile')
 def profile():
     return 'Profile'
 
 
 if __name__ == '__main__':
-    app.run()
+    main.run()
     #app.create_app()

@@ -4,16 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytesseract = "*"
-pillow = "*"
-flask = "*"
-google-api-python-client = "*"
-google-auth-httplib2 = "*"
-google-auth-oauthlib = "*"
-flask-sqlalchemy = "*"
-pymysql = "*"
-flask-login = "*"
-flask-wtf = "*"
 
 [dev-packages]
 

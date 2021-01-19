@@ -1,20 +1,5 @@
-from  __future__  import print_function
-import os
-from flask import Flask, render_template, request, flash, redirect, url_for
-from werkzeug.utils import secure_filename
-import datetime
-import pickle
-
-#imports for Flask_SQLAlchemy
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-# imports for the google calendar API
-import googleapiclient.discovery
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-
-# import our OCR function
-from ocr_core import ocr_core
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
