@@ -12,10 +12,12 @@
 
       <div id="list">
         <ul>
-          <li> Item 1! </li>
+          {% for event in events %}
+          <li> {{ event }} </li>
+          {% endfor %}
         </ul>
       </div>
-      
+
     {% endblock %}
   </body>
 </html>

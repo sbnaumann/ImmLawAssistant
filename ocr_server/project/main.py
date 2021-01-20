@@ -22,6 +22,8 @@ from .ocr_core import ocr_core
 
 main = Blueprint('main', __name__)
 
+# This code is required if we want to revert and ditch the
+# blueprint/flask run format and return to app.run()
 '''
 # define a folder to store and later serve the images
 UPLOAD_FOLDER = 'static/uploads/'
@@ -84,26 +86,28 @@ def calendar_page():
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('token.pickle'):
-        with  open('token.pickle', 'rb') as token:
+        with open('token.pickle', 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            # with open('token.pickle', 'wb') as token: # can't write files in Google App Engine so comment out or delete
-            # pickle.dump(creds, token)
-            with open('token.pickle', 'wb') as token:
-                pickle.dump(creds, token)
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
 
     service = googleapiclient.discovery.build('calendar', 'v3', credentials=creds)
+
     # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() +  'Z'  # 'Z' indicates UTC time
+    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
     print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId='primary', timeMin=now, maxResults=10, singleEvents=True, orderBy='startTime').execute()
+    events_result = service.events().list(calendarId='primary', timeMin=now,
+                                        maxResults=10, singleEvents=True,
+                                        orderBy='startTime').execute()
     events = events_result.get('items', [])
     if not events:
         print('No upcoming events found.')
